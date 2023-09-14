@@ -1,0 +1,8 @@
+.bar{
+    border-right: 1px solid balck;
+    display: block;
+    box-sizing: border-box;
+    height: 150px;
+    width: 300px;
+
+}

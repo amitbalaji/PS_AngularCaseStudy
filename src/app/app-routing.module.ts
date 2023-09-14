@@ -46,6 +46,13 @@ const routes: Routes = [
         (m) => m.DynamicBoxModule
       ),
   },
+  {
+    path: 'chart-dashboard',
+    loadChildren: () =>
+      import('./feature/chart-dashboard/chart.dashboard.module').then(
+        (m) => m.ChartDashboardModule
+      ),
+  },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 

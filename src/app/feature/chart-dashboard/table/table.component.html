@@ -1,0 +1,20 @@
+<table>
+    <thead>
+      <tr>
+        <th>Temperature</th>
+        <th>Min Temperature</th>
+        <th>Max Temperature</th>
+        <th>Humidity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of tableData; let i = index">
+        <ng-container *ngIf="i < 5">
+        <td>{{ data.temp }}</td>
+        <td>{{ data.temp_min }}</td>
+        <td>{{ data.temp_max }}</td>
+        <td>{{ data.humidity }}</td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
