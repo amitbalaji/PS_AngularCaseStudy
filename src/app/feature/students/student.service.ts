@@ -8,7 +8,7 @@ export class StudentService {
   constructor(private http: HttpClient) {}
 
   getStudents() {
-    return this.http.get(studentsUrl).pipe(
+    return this.http.get('https://dummy.restapiexample.com/api/v1/employees').pipe(
       map((studentResponse) => {
         return studentResponse;
       })

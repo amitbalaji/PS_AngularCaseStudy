@@ -18,7 +18,7 @@ export class ECommerceService {
   constructor(private http: HttpClient) {}
 
   getProducts() {
-    return this.http.get(productUrl).pipe(
+    return this.http.get('https://dummyjson.com/products').pipe(
       map((productResponse) => {
         return productResponse;
       })

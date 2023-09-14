@@ -53,6 +53,13 @@ const routes: Routes = [
         (m) => m.ChartDashboardModule
       ),
   },
+  {
+    path: 'user-registration',
+    loadChildren: () =>
+      import('./feature/user-registration/user-registration.module').then(
+        (m) => m.UserRegistartionModule
+      ),
+  },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 

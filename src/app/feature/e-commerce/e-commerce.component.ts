@@ -28,29 +28,42 @@ export class ECommerceComponent implements OnInit, OnDestroy {
       { value: 'highToLow', name: 'price: high to low' },
     ];
 
-    const productDataSub = this.ecommerceService.getProducts();
-    const productPhotosSub = this.ecommerceService.getPhotos();
-
-    this.productDataSubs = forkJoin([productDataSub, productPhotosSub])
-      .pipe(
-        map((productResponse) => {
-          for (let value of Object.values(productResponse[0])) {
-            this.productData.push(value);
-          }
-          for (let [key, value] of Object.entries(
-            Object.entries(productResponse[1])[2][1]
-          )) {
-            this.productData[key].product_img = value;
-          }
-        })
-      )
-      .subscribe(() => {
-        this.productData = this.productData.sort(
-          (low: { product_price: number }, high: { product_price: number }) =>
-            low.product_price - high.product_price
-        );
-        this.loading = false;
+   
+    this.ecommerceService.getProducts()
+      .subscribe((res:any) => {
+      res['products'].map((res: any) => {
+       this.productData.push({
+        product_img:res.thumbnail,
+        product_name:res.brand,
+        product_price:res.price
+       })
       });
+      });
+      this.productData = this.productData.sort(
+              (low: { price: number }, high: { price: number }) =>
+                low.price - high.price
+            );
+            this.loading = false;
+    // this.productDataSubs = forkJoin([productDataSub, productPhotosSub])
+    //   .pipe(
+    //     map((productResponse) => {
+    //       for (let value of Object.values(productResponse[0])) {
+    //         this.productData.push(value);
+    //       }
+    //       for (let [key, value] of Object.entries(
+    //         Object.entries(productResponse[1])[2][1]
+    //       )) {
+    //         this.productData[key].product_img = value;
+    //       }
+    //     })
+    //   )
+    //   .subscribe(() => {
+    //     this.productData = this.productData.sort(
+    //       (low: { price: number }, high: { price: number }) =>
+    //         low.price - high.price
+    //     );
+    //     this.loading = false;
+    //   });
   }
 
   gridView() {
@@ -87,6 +100,6 @@ export class ECommerceComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.productDataSubs.unsubscribe();
+   
   }
 }
