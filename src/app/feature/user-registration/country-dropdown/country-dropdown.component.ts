@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';import {
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';import {
   FormControl,
   FormGroup,
   FormGroupDirective,
@@ -22,27 +22,18 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     );
   }
 }
-
-interface Country {
-  shortName: string;
-  name: string;
-}
-
-
 @Component({
   selector: 'app-country-dropdown',
   templateUrl: './country-dropdown.component.html',
   styleUrls: ['./country-dropdown.component.css']
 })
 export class CountryDropdownComponent implements OnInit {
-
+  @Output() countryChanged = new EventEmitter();
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
-
   countries: any;
   states: any;
   cities: any;
-
   country = new FormControl(null, [Validators.required]);
   state = new FormControl({ value: null, disabled: true }, [
     Validators.required,
@@ -67,7 +58,6 @@ export class CountryDropdownComponent implements OnInit {
       this.state.disable();
       if (country) {
         this.states = this.service.getStatesByCountry(country);
-        console.log(this.states)
         this.state.enable();
       }
     });
@@ -77,10 +67,22 @@ export class CountryDropdownComponent implements OnInit {
       this.city.disable();
       if (state) {
         this.cities = this.service.getCitiesByState(this.country.value, state);
-        console.log(this.cities)
         this.city.enable();
       }
     });
+
+    this.city.valueChanges.subscribe((city) => {
+      if (city) {
+        let obj ={
+            country: this.country.value,
+            state: this.state.value,
+            city: this.city.value
+        }
+        this.countryChanged.emit(obj);
+      }
+    });
   }
+
+  
 
 }

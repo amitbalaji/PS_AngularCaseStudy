@@ -1,12 +1,15 @@
 <form [formGroup]="form">
-    <mat-form-field appearance="fill">
-      <mat-label>Country</mat-label>
+  <div class="form-row">
+    <mat-form-field class="form-group col-md-4">
+      <label for="country">Country</label>
       <mat-select
         [formControl]="country"
         name="country"
         [errorStateMatcher]="matcher"
+        class="form-control"
+        id="country"
       >
-        <mat-option *ngFor="let country of countries" [value]="country.isoCode">
+        <mat-option  class="not-empty-select" *ngFor="let country of countries" [value]="country.isoCode">
           {{ country.name }}
         </mat-option>
       </mat-select>
@@ -14,16 +17,18 @@
         >Please select a country.</mat-error
       >
     </mat-form-field>
-    <button mat-stroked-button class="btn" (click)="country.reset()">
+    <!-- <button mat-stroked-button class="btn" (click)="country.reset()">
       Clear
-    </button>
+    </button> -->
     <p></p>
-    <mat-form-field appearance="fill">
-      <mat-label>State</mat-label>
+    <mat-form-field class="form-group col-md-4">
+      <label>State</label>
       <mat-select
         [formControl]="state"
         name="state"
         [errorStateMatcher]="matcher"
+        class="form-control"
+        id="state"
       >
         <mat-option *ngFor="let state of states" [value]="state.isoCode">
           {{ state.name }}
@@ -33,11 +38,19 @@
         >Please select a state.</mat-error
       >
     </mat-form-field>
-    <button mat-stroked-button class="btn" (click)="state.reset()">Clear</button>
+    <!-- <button mat-stroked-button class="btn" (click)="state.reset()">
+      Clear
+    </button> -->
     <p></p>
-    <mat-form-field appearance="fill">
-      <mat-label>City</mat-label>
-      <mat-select [formControl]="city" name="city" [errorStateMatcher]="matcher">
+    <mat-form-field class="form-group col-md-6">
+      <label>City</label>
+      <mat-select
+        class="form-control"
+        [formControl]="city"
+        name="city"
+        [errorStateMatcher]="matcher"
+        id="city"
+      >
         <mat-option *ngFor="let city of cities" [value]="city">
           {{ city.name }}
         </mat-option>
@@ -46,8 +59,6 @@
         >Please select a city.</mat-error
       >
     </mat-form-field>
-    <button mat-stroked-button class="btn" (click)="city.reset()">Clear</button>
-    <!-- <p>Country: {{ country.name }}</p>
-    <p>State: {{ state.name }}</p>
-    <p>City: {{ city.name }}</p> -->
-  </form>
+    <!-- <button  mat-stroked-button class="btn" (click)="city.reset()">Clear</button> -->
+  </div>
+</form>
